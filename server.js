@@ -11,8 +11,12 @@ const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
 
 connectDB().then(() => {
   app.listen(process.env.PORT, () =>
