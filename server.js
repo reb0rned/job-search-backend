@@ -8,7 +8,10 @@ import { connectDB } from "./config/db.js";
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({
+  origin: "https://job-search-frontend-ltfl-git-main-reb0rneds-projects.vercel.app",
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
