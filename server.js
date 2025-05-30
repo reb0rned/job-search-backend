@@ -8,7 +8,27 @@ import { connectDB } from "./config/db.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://job-search-frontend-3zxt5ndt3-reb0rneds-projects.vercel.app",
+  "https://job-search-frontend-git-main-reb0rneds-projects.vercel.app",
+  "https://job-search-frontend-ltfl.vercel.app",
+  "https://job-search-frontend-reb0rneds-projects.vercel.app",
+  "https://job-search-frontend-kohl.vercel.app",
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`Blocked by CORS: ${origin}`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
